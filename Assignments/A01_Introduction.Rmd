@@ -1,6 +1,6 @@
 ---
-title: "Assignment 1: Introduction"
-author: "Student Name"
+title: RebeccaCox_A01_Introduction.Rmd
+author: Becca Cox
 output: pdf_document
 ---
 
@@ -22,22 +22,22 @@ Enter answers to the questions just below the >Answer: prompt.
 
 1. What are your previous experiences with data analytics, R, and Git? Include both formal and informal training.
 
-> Answer: 
+> Answer: I used R/RStudio a tiny bit during my senior year of college (two years ago), but a lot of the code was fed to us so I don't feel like I can code/navigate RStudio on my own.
 
 2. Are there any components of the course about which you feel confident?
 
-> Answer: 
+> Answer: I feel like I have a good grasp of what data is, how it can be organized, and the basics of what we're doing/looking at when we analyze it.
 
 3. Are there any components of the course about which you feel apprehensive?
 
-> Answer: 
+> Answer: I don't know how to code! I am a total beginner so am apprehensive about figuring it all out.
 
 
 ## 2) GitHub
 
 Provide a link below to your forked course repository in GitHub. Make sure you have pulled all recent changes from the course repository and that you have updated your course README file, committed those changes, and pushed them to your GitHub account. 
 
-> Answer: 
+> Answer: https://github.com/beccaeco/EDE_Fall2024
 
 ## 3) Knitting
 When you have completed this document, click the `knit` button.This should produce a PDF copy of your markdown document. Submit this PDF to Canvas 
