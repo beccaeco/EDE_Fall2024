@@ -104,7 +104,7 @@ basics3 <- function(x) {
   }
 }
 
-basics3(60)
+basics3(60) # example
 
 ```
 
@@ -118,7 +118,7 @@ basics3ifelse <- function(x){
   ifelse(x>50, print("Pass"), print("Fail")) #log_exp, if TRUE, if FALSE
 }
 
-basics3ifelse(60)
+basics3ifelse(60) # example
 
 ```
 
