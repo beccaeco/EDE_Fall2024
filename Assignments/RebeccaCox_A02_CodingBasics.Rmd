@@ -1,6 +1,6 @@
 ---
 title: "Assignment 2: Coding Basics"
-author: "Student Name"
+author: "Becca Cox"
 output: pdf_document
 geometry: margin=2.54cm
 editor_options: 
@@ -24,20 +24,38 @@ This exercise accompanies the lessons/labs in Environmental Data Analytics on co
 
 1.  Generate a sequence of numbers from one to 55, increasing by fives. Assign this sequence a name.
 
+```{r basics 1a}
+
+seq(1, 55, 5) # from, to, by
+
+basicseq <- seq(1, 55, 5) #assign a name
+
+```
+
 2.  Compute the mean and median of this sequence.
+
+```{r basics 1b}
+
+mean(basicseq) # calculate mean
+
+median(basicseq) # calculate median
+
+```
 
 3.  Ask R to determine whether the mean is greater than the median.
 
-4.  Insert comments in your code to describe what you are doing.
+```{r basics 1c}
 
-```{r basics 1}
-#1. 
+mean(basicseq) > median(basicseq) # mean > median is false
 
-#2. 
+mean(basicseq) < median(basicseq) # mean < median is also false
 
-#3. 
+mean(basicseq) == median(basicseq) #true -- they are the same
 
 ```
+
+4.  Insert comments in your code to describe what you are doing.
+
 
 ## Basics, Part 2
 
@@ -45,44 +63,95 @@ This exercise accompanies the lessons/labs in Environmental Data Analytics on co
 
 6.  Label each vector with a comment on what type of vector it is.
 
+```{r basics 2a}
+
+studentnames <- c("John","Beth","Sam","Becca") #student names # Character
+
+testscores <- c(62,60,98,20) # test scores # Numeric
+
+scholarship <- c(TRUE,FALSE,FALSE,TRUE) # scholarship # Logical
+
+```
+
 7.  Combine each of the vectors into a data frame. Assign the data frame an informative name.
 
 8.  Label the columns of your data frame with informative titles.
 
-```{r basics 2}
+```{r basics 2b}
 
+studentscoresandstatus <- data.frame(studentnames,testscores,scholarship) #Combine the vectors into a dataframe
+
+names(studentscoresandstatus) <- c("Name","Test Score","Scholarship Recipient") #Set the column names
 
 ```
 
 9.  QUESTION: How is this data frame different from a matrix?
 
-> Answer:
+> Answer: In a matrix, the data classes (i.e. the type of vector) need to be the same. Our dataframe allows us to use information from three different data classes: student names are character, test scores are numeric, and receipt of a scholarship is logical.
 
 10. Create a function with one input. In this function, use `if`...`else` to evaluate the value of the input: if it is greater than 50, print the word "Pass"; otherwise print the word "Fail". 
 
+```{r basics 3a}
+
+# Create a function using if...else
+
+basics3 <- function(x) {
+  if(x > 50) {
+    print("Pass")
+  } 
+  else {
+    print("Fail")
+  }
+}
+
+basics3(60)
+
+```
+
 11. Create a second function that does the exact same thing as the previous one but uses `ifelse()` instead if `if`...`else `. 
+
+```{r basics 3b}
+
+# Create a function using ifelse()
+
+basics3ifelse <- function(x){
+  ifelse(x>50, print("Pass"), print("Fail")) #log_exp, if TRUE, if FALSE
+}
+
+basics3ifelse(60)
+
+```
 
 12. Run both functions using the value 52.5 as the input
 
+```{r basics 3c}
+
+# Run the first function with the value 52.5
+
+# Run the second function with the value 52.5
+
+basics3(52.5)
+
+basics3ifelse(52.5)
+
+```
+
 13. Run both functions using the **vector** of student test scores you created as the input. (Only one will work properly...)
 
-```{r basics 3}
-#10. Create a function using if...else
+```{r basics 3d}
 
-#11. Create a function using ifelse()
+# Run the first function with the vector of test scores
 
-#12a. Run the first function with the value 52.5
+# Run the second function with the vector of test scores
 
-#12b. Run the second function with the value 52.5
+# basics3(testscores) # Error
 
-#13a. Run the first function with the vector of test scores
+basics3ifelse(testscores) # Success
 
-#13b. Run the second function with the vector of test scores
 ```
 
 14. QUESTION: Which option of `if`...`else` vs. `ifelse` worked? Why? (Hint: search the web for "R vectorization")
 
-> Answer:
-
+> Answer: "ifelse" worked and "'if'...'else'" did not. My research on "R vectorization" revealed that "if" statements are not vectorized, and only work "if there is a single TRUE or FALSE value in the if statement" (source: Displayr), which cannot be the case with the multiple values of a vector. The "ifelse" function allows each component of the function to occur on each element of the vector at the same time, so there can be more than one value in the output.
 
 **NOTE** Before knitting, you'll need to comment out the call to the function in Q13 that does not work. (A document can't knit if the code it contains causes an error!)
