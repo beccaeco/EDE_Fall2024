@@ -97,12 +97,12 @@ here()
 
 filefolder <- here('EDE_Fall2024','Data','Raw')
 
-EPAair_files <- dir(filefolder,pattern = ("EPAair_O3*"))
+EPAair_files <- dir(filefolder,pattern = ("EPAair_O3*"),full.names=TRUE)
 
 print(EPAair_files)
 
 getwd()
-setwd('./Data/Raw')
+#setwd('./Data')
 
 library(tidyverse)
 
