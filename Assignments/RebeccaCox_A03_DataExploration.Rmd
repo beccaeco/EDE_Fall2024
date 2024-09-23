@@ -32,7 +32,7 @@ This exercise accompanies the lessons in Environmental Data Analytics on Data Ex
 
 1.  Load necessary packages (tidyverse, lubridate, here), check your current working directory and upload two datasets: the ECOTOX neonicotinoid dataset (ECOTOX_Neonicotinoids_Insects_raw.csv) and the Niwot Ridge NEON dataset for litter and woody debris (NEON_NIWO_Litter_massdata_2018-08_raw.csv). Name these datasets "Neonics" and "Litter", respectively. Be sure to include the subcommand to read strings in as factors.
 
-```{r}
+```{r setup}
 
 library(tidyverse); library(lubridate); library(here)
 
@@ -45,11 +45,11 @@ setwd(here())
 dir()
 
 neonics <- read.csv(
-  file = here("./EDE_Fall2024/Data/Raw/ECOTOX_Neonicotinoids_Insects_raw.csv"),
+  file = here("./Data/Raw/ECOTOX_Neonicotinoids_Insects_raw.csv"),
   stringsAsFactors = TRUE)
 
 litter <- read.csv(
-  file = here("./EDE_Fall2024/Data/Raw/NEON_NIWO_Litter_massdata_2018-08_raw.csv"),
+  file = here("./Data/Raw/NEON_NIWO_Litter_massdata_2018-08_raw.csv"),
   stringsAsFactors = TRUE)
 
 ```
@@ -75,7 +75,7 @@ litter <- read.csv(
 
 5.  What are the dimensions of the dataset?
 
-```{r}
+```{r neonic_dim}
 
 dim(neonics)
 
@@ -121,7 +121,7 @@ class(neonics$Conc.1..Author.)
 ```{r}
 
 ggplot(neonics) +
-  geom_freqpoly(aes(x = Publication.Year))
+  geom_freqpoly(aes(x = Publication.Year)) 
 
 ```
 
@@ -138,7 +138,7 @@ summary(neonics$Test.Location)
 
 Interpret this graph. What are the most common test locations, and do they differ over time?
 
-> Answer: Most of the tests (n = 2860) took place in a lab. The second most common test location is in the Field (natural) (n=1663). There were not many studies taking place until the 1990s, when the number of tests in the lab and in the Field (natural) were comparable until the early 2000s. Around 2002, there was a spike in Lab studies. At this time, there is also a slight increase in the number of Field (artificial) studies. The total number of studies being conducted dropped quickly around 2007. The number of Lab and Field (natural) studies increased again until 2009, then dropped again in late 2010. The number of Field (artificial) studies also had a slight increase in beginning around the same time, and it was steady, yet still low, until 2016. After late 2010, the number of Field (natural) studies remained lower and continued decreasing overall. The number of Lab studies increased overall, peaking at almost 700 studies in late 2014, then declined quickly until 2016. Since 2016, both Lab and Field (natural) studies have been decreasing fairly gradually to almost no studies being produced in a year.
+> Answer: Most of the tests (n = 2860) took place in a lab. The second most common test location is in the Field (natural) (n=1663). There were not many studies taking place until the 1990s, when the number of tests in the lab and in the Field (natural) were comparable until the early 2000s. Around 2002, there was a spike in Lab studies. At this time, there is also a slight increase in the number of Field (artificial) studies. The total number of studies being conducted dropped quickly around 2007. The number of Lab and Field (natural) studies increased again until 2009, then dropped again until late 2010. The number of Field (artificial) studies also had a slight increase beginning around the same time, and it was steady, yet still low, until 2016. After late 2010, the number of Field (natural) studies remained lower and continued decreasing overall. The number of Lab studies increased overall, peaking at almost 700 studies in late 2014, then declined quickly until 2016. Since 2016, both Lab and Field (natural) studies have been decreasing fairly gradually to almost no studies being produced in a year.
 
 11. Create a bar graph of Endpoint counts. What are the two most common end points, and how are they defined? Consult the ECOTOX_CodeAppendix for more information. 
 
