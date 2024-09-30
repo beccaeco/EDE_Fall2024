@@ -1,6 +1,6 @@
 ---
 title: "Assignment 4: Data Wrangling (Fall 2024)"
-author: "Student Name"
+author: "Becca Cox"
 output: pdf_document
 geometry: margin=2.54cm
 ---
@@ -109,16 +109,22 @@ class(EPAair_PM25_NC2019_raw$Date)
 
 #4
 
-install.packages("dplyr")
+#install.packages("dplyr")
 library(dplyr)
 
-EPAair_O3_NC2018_raw.select <- select(EPAair_O3_NC2018_raw, Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+EPAair_O3_NC2018_raw.select <- select(EPAair_O3_NC2018_raw, Date, DAILY_AQI_VALUE,
+          Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
 
-EPAair_O3_NC2019_raw.select <- select(EPAair_O3_NC2019_raw, Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+colnames(EPAair_O3_NC2018_raw.select)
 
-EPAair_PM25_NC2018_raw.select <- select(EPAair_PM25_NC2018_raw, Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+EPAair_O3_NC2019_raw.select <- select(EPAair_O3_NC2019_raw, Date, DAILY_AQI_VALUE,
+          Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
 
-EPAair_PM25_NC2019_raw.select <- select(EPAair_PM25_NC2019_raw, Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+EPAair_PM25_NC2018_raw.select <- select(EPAair_PM25_NC2018_raw, Date, DAILY_AQI_VALUE,
+          Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+
+EPAair_PM25_NC2019_raw.select <- select(EPAair_PM25_NC2019_raw, Date, DAILY_AQI_VALUE,
+          Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
 
 #5
 
@@ -128,13 +134,17 @@ EPAair_PM25_NC2019_raw.select$AQS_PARAMETER_DESC <- "PM2.5"
 
 #6
 
-write.csv(EPAair_O3_NC2018_raw.select, row.names = FALSE, file = "./Data/Processed/EPAair_O3_NC2018_Processed.csv")
+write.csv(EPAair_O3_NC2018_raw.select, row.names = FALSE, 
+          file = "./Data/Processed/EPAair_O3_NC2018_Processed.csv")
 
-write.csv(EPAair_O3_NC2019_raw.select, row.names = FALSE, file = "./Data/Processed/EPAair_O3_NC2019_Processed.csv")
+write.csv(EPAair_O3_NC2019_raw.select, row.names = FALSE, 
+          file = "./Data/Processed/EPAair_O3_NC2019_Processed.csv")
 
-write.csv(EPAair_PM25_NC2018_raw.select, row.names = FALSE, file = "./Data/Processed/EPAair_PM25_NC2018_Processed.csv")
+write.csv(EPAair_PM25_NC2018_raw.select, row.names = FALSE, 
+          file = "./Data/Processed/EPAair_PM25_NC2018_Processed.csv")
 
-write.csv(EPAair_PM25_NC2019_raw.select, row.names = FALSE, file = "./Data/Processed/EPAair_PM25_NC2019_Processed.csv")
+write.csv(EPAair_PM25_NC2019_raw.select, row.names = FALSE, 
+          file = "./Data/Processed/EPAair_PM25_NC2019_Processed.csv")
 
 ```
 
@@ -154,7 +164,9 @@ write.csv(EPAair_PM25_NC2019_raw.select, row.names = FALSE, file = "./Data/Proce
   
   (the function `intersect` can figure out common factor levels - but it will include sites with missing site information, which you don't want...) 
 
-  * Some sites have multiple measurements per day. Use the split-apply-combine strategy to generate daily means: group by date, site name, AQS parameter, and county. Take the mean of the AQI value, latitude, and longitude.
+  * Some sites have multiple measurements per day. Use the split-apply-combine 
+  strategy to generate daily means: group by date, site name, AQS parameter, 
+  and county. Take the mean of the AQI value, latitude, and longitude.
   
   * Add columns for "Month" and "Year" by parsing your "Date" column (hint: `lubridate` package)
   
@@ -169,33 +181,35 @@ write.csv(EPAair_PM25_NC2019_raw.select, row.names = FALSE, file = "./Data/Proce
 ```{r questions 7 thru 11}
 #7 
 
-EPAair_rbind <- rbind(EPAair_O3_NC2018_raw.select, EPAair_O3_NC2019_raw.select, EPAair_PM25_NC2018_raw.select, EPAair_PM25_NC2019_raw.select)
+EPAair_rbind <- rbind(EPAair_O3_NC2018_raw.select, EPAair_O3_NC2019_raw.select,
+                EPAair_PM25_NC2018_raw.select, EPAair_PM25_NC2019_raw.select)
 
 #8 
 
-#Some sites have multiple measurements per day. Use the split-apply-combine strategy to generate daily means: group by date, site name, AQS parameter, and county. Take the mean of the AQI value, latitude, and longitude.
-
-#Add columns for "Month" and "Year" by parsing your "Date" column (hint: `lubridate` package)
-
-EPAair_rbind_wrangled$Date <- mdy(EPAair_rbind_wrangled$Date)
-class(EPAair_rbind_wrangled$Date)
+EPAair_rbind$Date <- ymd(EPAair_rbind$Date)
 
 EPAair_rbind_wrangled <- EPAair_rbind %>%
-  filter(Site.Name == "Linville Falls" | Site.Name == "Durham Armory" | Site.Name == "Leggett"| Site.Name == "Hattie Avenue"|
-  Site.Name == "Clemmons Middle" | Site.Name == "Mendenhall School" | Site.Name == "Frying Pan Mountain" |
-  Site.Name == "West Johnston Co." | Site.Name == "Garinger High School" | Site.Name == "Castle Hayne" |
-  Site.Name == "Pitt Agri. Center" | Site.Name == "Bryson City" | Site.Name == "Millbrook School") %>%
+  filter(Site.Name == "Linville Falls" | Site.Name == "Durham Armory" | Site.Name == "Leggett"| 
+    Site.Name == "Hattie Avenue"| Site.Name == "Clemmons Middle" | Site.Name == "Mendenhall School" | 
+      Site.Name == "Frying Pan Mountain" | Site.Name == "West Johnston Co." | 
+      Site.Name == "Garinger High School" | Site.Name == "Castle Hayne" | 
+      Site.Name == "Pitt Agri. Center" | Site.Name == "Bryson City" | 
+      Site.Name == "Millbrook School") %>%
   group_by(Date, Site.Name, AQS_PARAMETER_DESC, COUNTY) %>%
   summarise(meanAQI = mean(DAILY_AQI_VALUE), 
             meanlat = mean(SITE_LATITUDE), 
             meanlong = mean(SITE_LONGITUDE)) %>% 
-  separate(Date, c("Month", "Day", "Year"), sep = "/", remove = TRUE)
+  separate(Date, c("Year", "Month", "Day"), sep = "-", remove = TRUE)
+
+colnames(EPAair_rbind_wrangled)
 
 #9
 
-#Spread your datasets such that AQI values for ozone and PM2.5 are in separate columns. Each location on a specific date should now occupy only one row.
+EPAair_rbind_wrangled.wider <- pivot_wider(EPAair_rbind_wrangled, 
+      names_from = AQS_PARAMETER_DESC, values_from = AQS_PARAMETER_DESC, 
+      id_cols = Year:meanlong)
 
-EPAair_rbind_wrangled.wider <- pivot_wider(EPAair_rbind_wrangled, names_from = AQS_PARAMETER_DESC, values_from = AQS_PARAMETER_DESC, id_cols = Month:meanlong)
+colnames(EPAair_rbind_wrangled.wider)
 
 
 #10
@@ -204,7 +218,8 @@ dim(EPAair_rbind_wrangled.wider)
 
 #11
 
-write.csv(EPAair_rbind_wrangled.wider, row.names = FALSE, file = "./Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv")
+write.csv(EPAair_rbind_wrangled.wider, row.names = FALSE, 
+          file = "./Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv")
 
 
 ```
@@ -235,4 +250,4 @@ dim(EPAair_rbind_wrangled.wider.summaries)
 14. Why did we use the function `drop_na` rather than `na.omit`? Hint: replace `drop_na` with `na.omit` in part 12 and observe what happens with the dimensions of the summary date frame.
 
 > Answer: 
-rows w/o ozone values are omitted. na.omit leaves out entire row of data where there was no ozone value. some months/years were missing.
+When you use "na.omit", you lose many rows of data. It seems that because the data is being grouped by Site.Name/Month/Year, "na.omit" leaves out the entire group when there is any instance (ex. any one site or day within the month) that has no ozone value. "Drop_na" seems to only remove the single row of data in which Ozone has an NA value, as opposed to removing the whole group that it is a part of.
