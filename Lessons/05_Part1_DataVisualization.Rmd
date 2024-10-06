@@ -20,6 +20,7 @@ Effective data visualization depends on purposeful choices about graph types. Th
 
 ```{r, message = FALSE, warning = FALSE}
 library(tidyverse);library(lubridate);library(here)
+#install.packages("ggridges")
 library(ggridges)
 
 here()
@@ -78,6 +79,9 @@ Here are some commonly used aesthetic types that can be manipulated in ggplot:
 
 ```{r, fig.height = 3, fig.width = 4, warning = FALSE}
 # Scatterplot
+
+library(ggplot2)
+        
 ggplot(EPAair, aes(x = Date, y = Ozone)) + 
   geom_point()
 
@@ -87,7 +91,7 @@ print(O3plot)
 
 # Fix this code
 O3plot2 <- ggplot(EPAair) +
-  geom_point(aes(x = Date, y = Ozone, color = "blue"))
+  geom_point(aes(x = Date, y = Ozone), color = "blue")
 print(O3plot2)
 
 # Add additional variables
@@ -185,6 +189,7 @@ print(Nutrientplot5)
 
 # Frequency polygons
 # Using a tidy dataset
+#no legend
 Nutrientplot6 <-
   ggplot(PeterPaul.chem.nutrients) +
   geom_freqpoly(aes(x = tn_ug), color = "darkred") +
