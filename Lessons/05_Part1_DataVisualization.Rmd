@@ -8,6 +8,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+\listoffigures
+
 ## Objectives
 1. Perform simple data visualizations in the R package `ggplot`
 2. Develop skills to adjust aesthetics and layers in graphs
